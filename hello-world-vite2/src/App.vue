@@ -1,11 +1,16 @@
 <script setup>
+import BindModel from './components/bindModel.vue';
+import ClickButton from './components/ClickButton.vue';
 import HelloWorld from './components/HelloWorld.vue'
 import Date from '@components/Date.vue'
+import Vif from './components/Vif.vue';
+import Vfor from './components/Vfor.vue';
+import VComputed from './components/VComputed.vue';
 </script>
 
 <template>
   <div><h1>TEST CODE</h1></div>
-  <Date></Date>
+  <VComputed/>
 </template>
 
 <style scoped>
