@@ -1,5 +1,9 @@
-import { createApp } from 'vue'
+import { createApp, ref } from 'vue'
 import './style.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+app.config.globalProperties.title = "Vue 3 Demo"
+app.provide('counter_header', 'Counter ')
+app.mount('#app')
