@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+    <script src ="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+</head>
+<body>
+    
+    <div id = "root">
+        <word-relay start-word ="제이드"></word-relay>
+        <word-relay start-word ="초밥"></word-relay>
+        <word-relay start-word ="바보"></word-relay>
+    </div>
+    <script>
+        Vue.component('wordRelay',{
+            template : `
+                <div>
+                    <p>{{ prevWord }}</p>
+                    <form action = "#">
+                        <input type ="text" v-model="inputWord"/>
+                        <button v-on:click ="onClickButton">입력</button>
+                    </form>
+                    <p>{{ result }}</p>
+                </div>
+            `,
+            props : ['startWord']
+            ,
+            data(){
+                return {
+                    inputWord : "",
+                    prevWord : this.startWord,
+                    result : "",
+                }
+
+            },
+            methods : {
+                onClickButton : function(){
+                    console.log(this.prevWord.slice(-1), this.inputWord.slice(0,1) ,this.prevWord.slice(-1) === this.inputWord.slice(0,1) )
+                    if(this.prevWord.slice(-1) === this.inputWord.slice(0,1))
+                        {
+                            this.prevWord = this.inputWord
+                            this.inputWord = ""
+                            this.result = "정답"
+                        }
+                    else
+                    {
+                        this.inputWord = ""
+                        this.result = "땡"
+                    }
+                        
+
+                },
+            },
+        })
+    </script>
+    <script>
+        const app = new Vue({
+            el : "#root",            
+        })
+    </script>
+</body>
+
+</html>

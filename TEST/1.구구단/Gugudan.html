@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구구단</title>
+    <script src ="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id = "root">
+        <p>{{ num1 }} 곱하기 {{ num2 }} 는 ?</p>
+        <form action="#">
+            <input type = "number" ref="answer" v-model="inputNum"/>
+            <button v-on:click="checkButton">입력</button>
+        </form>
+        <p>
+            {{ result }}
+        </p>
+    </div>
+    <script>
+        const app = new Vue({
+            el : '#root',
+            data : {
+                num1 : Math.floor(Math.random() * 9)+1,
+                num2 : this.num2 = Math.floor(Math.random() * 9)+1,
+                inputNum : "",
+                result : ""
+            },
+            methods : {
+                checkButton : function(){
+                    if(this.num1 * this.num2 == this.inputNum)
+                        this.result = "정답"
+                    else
+                        this.result = "땡"
+
+                    this.inputNum = ""
+                    this.num1 = Math.floor(Math.random() * 9)+1
+                    this.num2 = Math.floor(Math.random() * 9)+1
+                    this.$refs.answer.focus()
+                }
+            }
+        })
+    </script>
+</body>
+</html>

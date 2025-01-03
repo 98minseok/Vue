@@ -1,13 +1,4 @@
 <script setup>
-import BindModel from './components/bindModel.vue';
-import ClickButton from './components/ClickButton.vue';
-import HelloWorld from './components/HelloWorld.vue'
-import Date from '@components/Date.vue'
-import Vif from './components/Vif.vue';
-import Vfor from './components/Vfor.vue';
-import VComputed from './components/VComputed.vue';
-import Watch from './components/Watch.vue';
-import MyComponent from './components/MyComponent.vue';
 import TextInput from './components/TextInput.vue';
 </script>
 
