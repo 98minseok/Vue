@@ -1,14 +1,17 @@
 <template>
     <div>
         <div id ="screen" v-bind:class ="state" @click ="onClickScreen">{{message}}</div>
-        <div>평균 시간 : {{result.reduce((a,c) => a+c,0) / result.length || 0}}ms</div>
-        <button @click ="onReset">리셋</button>
+        <template v-if="result.length">
+            <div>평균 시간 : {{average}}ms</div>
+            <button @click ="onReset">리셋</button>
+        </template>
     </div>
 </template>
 
 <script>
     let start_time = ""
     let end_time = ""
+    let timeout =""
     export default {
         data() {
             return {
@@ -17,6 +20,13 @@
                 message : '클릭해서 시작하세요.',
             }
         },
+        computed: {
+            average() {
+                return this.result.length > 0
+                ? this.result.reduce((a, c) => a + c, 0) / this.result.length
+                : 0;
+            },
+            },
         methods :{
             onReset() {
                 this.result = []
@@ -40,7 +50,9 @@
                     end_time = new Date().getTime();
                     this.result.push(end_time - start_time)
                 }
+                console.log(this.result)
             }
+            
         },
     }
 </script>
