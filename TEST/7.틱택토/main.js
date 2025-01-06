@@ -1,3 +1,3 @@
 import Vue, { createApp } from 'vue'
-import RockScissorsPaper from './LottoGenerater.vue'
-createApp(RockScissorsPaper).mount('#root');
+import TictactoGame from './TictactoGame.vue'
+createApp(TictactoGame).mount('#root');

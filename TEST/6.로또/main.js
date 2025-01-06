@@ -1,3 +1,3 @@
 import Vue, { createApp } from 'vue'
-import RockScissorsPaper from './LottoGenerater.vue'
-createApp(RockScissorsPaper).mount('#root');
+import LottoGenerater from './LottoGenerater.vue'
+createApp(LottoGenerater).mount('#root');
