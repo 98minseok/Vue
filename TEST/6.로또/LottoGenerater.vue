@@ -1,114 +1,122 @@
 <template>
     <div>
-        <div id ="computer" :style ="computedStyleObject" ></div>
-        <div>
-            <button @click = 'onClickButton("바위")'>바위</button>
-            <button @click = 'onClickButton("가위")'>가위</button>
-            <button @click = "onClickButton('보')">보</button>
-        </div>
-        <div>{{ result }}</div>
-        <div>현재 {{ score }}점</div>
+        <p>당첨숫자</p>
+        <ul id ="numberSection">
+            <li v-for ="number in displayArray" :key ="number">
+        <lotto-ball :key = "number" :number = "number"></lotto-ball>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <p>보너스</p>
+        <lotto-ball v-if ="BonusNumber[0]" :number = "BonusNumber[0]"></lotto-ball>
+        <button v-if = "redo" @click="onClickReset">한번 더</button>
     </div>
 </template>
 
 <script>
-    const rspCoords = {
-        바위 : '0',
-        가위 : '-142px',
-        보 : '-284px',
+    import LottoBall from './LottoBall.vue';
+    let interval
+    let index = 0;
+    const getNumbers = () => {
+        const numbers = []
+        for(let i = 1; i < 46; i ++){
+            numbers.push(i)
+        }
+        const returnNumbers = []
+        for(let i = 0 ; i < 7 ; i++){
+            let pushNum = numbers.splice(Math.floor(Math.random() * 44-i) + 1,1)[0]
+            returnNumbers.push(pushNum)
+        }
+        return returnNumbers;
     }
-    let rspData = "바위"
-    let interval = ""
-    export default {
-        data() {
-            return {
-                imgCoord :rspCoords[rspData],
-                result : '',
-                score : 0,
+    export default{
+        components : {
+            'lotto-ball' : LottoBall
+        },
+        data () {
+            return{
+                BonusNumber : [],
+                displayArray : [],
+                redo : null
             }
         },
-        computed: {
-            computedStyleObject(){
-                return{
-                    background : `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${this.imgCoord} 0` 
-                }
-            }
-            },
         methods :{
-            changeHand(){
-                interval = setInterval(() =>{
-                if (rspData === "바위"){
-                    rspData = "가위"
-                }else if(rspData === "가위"){
-                    rspData = "보"
-                }else if(rspData === "보"){
-                    rspData = "바위"
+            playGame : function(){
+                index = 0
+                this.redo = false
+                const array = getNumbers()
+                const jackpotNumbers = array.slice(0,6).sort((a,b) => a-b);
+                const bonusNumber = array.slice(6,7)[0]
+                interval = setInterval(() =>{;
+                if(index == 6){
+                    this.BonusNumber.push(bonusNumber)
+
                 }
-                this.imgCoord = rspCoords[rspData]
-                },100)
+                else{
+                    this.displayArray.push(jackpotNumbers[index])
+                }
+                index++;
+                if(index == 7){
+                    clearInterval(interval)
+                    this.redo = true
+                }
+            },100)
             },
-            onClickButton(type) {
-                clearInterval(interval)
-                switch(type){
-                    case "바위":
-                        if(rspData === "바위"){
-                            this.result ="무승부"
-                        }
-                        else if(rspData === "가위"){
-                            this.result = "승리"
-                            this.score ++
-                        }
-                        else if(rspData === "보"){
-                            this.result ="패배"
-                            this.score --
-                        }
-                        break;
-                    case "가위":
-                        if(rspData === "바위"){
-                            this.result ="패배"
-                            this.score --
-                        }
-                        else if(rspData === "가위"){
-                            this.result = "무승부"
-                        }
-                        else if(rspData === "보"){
-                            this.result = "승리"
-                            this.score ++
-                        }
-                        break;
-                    case "보":
-                    if(rspData === "바위"){
-                            this.result ="승리"
-                            this.score ++
-                        }
-                        else if(rspData === "가위"){
-                            this.result = "패배"
-                            this.score --
-                        }
-                        else if(rspData === "보"){
-                            this.result ="무승부"
-                        }
-                        break;
+            colorOfNumber : function(number){
+                console.log(number, number/10)
+                let result = Math.floor(number/10);
+                if(result == 0){
+                    return "red"
                 }
-                setTimeout(() =>{
-                    this.changeHand();
-                },1000)
+                else if(result== 1){
+                    return "orange"
+                }
+                else if(result == 2){
+                    return "yellow"
+                }
+                else if(result == 3){
+                    return "blue"
+                }
+                else{
+                    return "green"
+                }
+                },
+            onClickReset : function(){
+                this.BonusNumber = []
+                this.displayArray = []
             }
         },
-        mounted() {
-            console.log('mounted');
-            this.changeHand();
+        mounted (){
+            this.playGame()
         },
-        beforeDestroy() {
-            clearInterval(interval);
-        },
+        watch : {
+            displayArray(val,oldVal){
+                if(val.length === 0 ){
+                    this.playGame()
+                }
+            }
+        }
+
     }
 </script>
 
 <style scoped>
-#computer{
-    width : 150px;
-    height : 200px;
-
-}
+    #numberSection{
+        display:flex;
+        list-style-type: none;
+    }
+    .numberDiv{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+       padding :30px;
+       width : 50px;
+       height : 50px;
+       margin : 10px;
+       box-sizing:border-box;
+       text-align:center;
+       border-radius : 100px;
+       border:1px solid black;
+    }
 </style>
