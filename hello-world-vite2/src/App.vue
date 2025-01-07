@@ -1,19 +1,13 @@
 <template>
-  <ProvideComponent>
-    
-  </ProvideComponent>
+  <Directive></Directive>
 </template>
 
 <script>
-import ProvideComponent from './components/ProvideComponent.vue';
-import { provide } from 'vue';
+import Directive from './components/Directive.vue';
 
 export default{
-  provide :{
-    msg : '메시지',
-  },
   components : {
-    ProvideComponent
+    Directive
   }
 }
 </script>
