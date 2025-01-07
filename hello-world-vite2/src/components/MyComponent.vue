@@ -1,6 +1,6 @@
 <template>
      <h3 v-text = "title"></h3>
-     <span v-for="i in data" :key="i">{{ i }}</span>
+     <p v-for="i in data" :key="i">{{ i }}</p>
 </template>
 <script>
 import { ref } from 'vue';
