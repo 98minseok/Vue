@@ -35,7 +35,7 @@
     export default{
         name : 'NavBar',
         setup() {
-            const menu = ref('home')
+            const menu = ref('me')
             const menus = [
                 { key : 'home', value : '홈' , URL: "#" , position : 'left'},
                 { key : 'app', value : '애플리케이션' , URL: "#" , position : 'left'},
