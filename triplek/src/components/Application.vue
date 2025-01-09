@@ -1,7 +1,7 @@
 <template>
     <p class="m-2">
     총 {{ applications_count }} 개의 어플리케이션 중
-    {{ applications.length }}개가 보여집니다.
+    {{ applications.length }} 개 보여지는중
   </p>
   <hr />
   <div class="row row-cols-1 row-cols-sm-3 g-2 m-0">
@@ -9,6 +9,7 @@
       <app-card :data="data" />
     </div>
   </div>
+  <input type ="search" v-model = "searchData">
 </template>
 
 <script>
@@ -19,10 +20,17 @@
 export default{
     name : "Application",
     setup(){
+        const searchData = ref("")
         const store = useStore()
         const axiosGet = useAxios()
         const applications = computed(() => {
-            store.getters['applications/applications']();
+            if(searchData.value ==""){
+                return store.getters['applications/applications']();
+            }
+            else{
+                return store.getters['applications/applications'](searchData.value);
+            }
+            
         })
         console.log("applications : " + applications.value)
         const applications_count = computed(
@@ -32,7 +40,9 @@ export default{
         onMounted(() => {
             if (!store.getters['applications/applications_count']){
                 axiosGet('/db/applications',(data) => {
+                    console.log("onMounted",data)
                     store.dispatch('applications/setApplications', data.data)
+
                 })
             }
         })
@@ -40,7 +50,11 @@ export default{
         return {
             applications_count,
             applications,
+            searchData
         }
+    },
+    components : {
+        AppCard
     }
 }
 </script>
