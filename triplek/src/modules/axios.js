@@ -32,7 +32,7 @@ export default function () {
     }
 
     const axiosPost = async(URL,data,onSuccess = null, onFailed = null) => {
-        console.log('axiosPost',URL,data)
+            
         communicating.value = true
         axios.post(createURL(URL),data).then((resp) => {
             console.log(URL,'axiosPost',resp)
@@ -53,4 +53,5 @@ export default function () {
         axiosPost,
         axiosPut,
     }
+    
 }

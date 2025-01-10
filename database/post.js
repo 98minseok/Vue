@@ -49,4 +49,20 @@ module.exports.setup = function(app,db){
             }
         )
     })
+
+    app.post('/db/blog',(req,res,next) => {
+        let result = {
+            rsp : 'fail'
+        }
+        console.log(req.body)   
+        db.run(`INSERT INTO tbl_blog (title,post,type) VALUES ('${req.body.title}','${req.body.content}' , '${req.body.type}')`,(err) => {
+            if(!err){
+                result.rsp = 'ok'
+                res.json(result)
+            }else{
+                result.error = err.message
+                res.json(result)
+            }
+        })
+    })
 }

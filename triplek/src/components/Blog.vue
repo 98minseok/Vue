@@ -12,7 +12,8 @@
         >
           <h2 class="blog-post-title">{{ article.title }}</h2>
           <p class="blog-post-meta">{{ article.date }}</p>
-          <div v-html="article.post" />
+          <div v-if="article.type == 'html'" v-html="article.post" />
+          <markdown v-else-if="article.type == 'md'" id="md" :source="article.post" />
         </article>
 
         <nav class="blog-pagination" aria-label="Pagination">
@@ -95,11 +96,12 @@
 
 <script>
 import { ref, reactive, onMounted, computed } from 'vue'
+import Markdown from 'vue3-markdown-it'
 import useAxios from '../modules/axios.js'
 export default {
   setup() {
     // 데이타 가져오기
-    const {axiosGet} = useAxios()
+    const { axiosGet } = useAxios()
     const posts = reactive([])
     onMounted(() => {
       axiosGet('/db/blog', onSuccess)
@@ -151,6 +153,9 @@ export default {
       archives,
       onArchive,
     }
+  },
+  components: {
+    Markdown,
   },
 }
 </script>

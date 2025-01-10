@@ -3,6 +3,7 @@
         <div class="row text-right pr-sm-2">
             <small><a href="#" @click="onLogout">Logout</a></small>
         </div>
+        <editor></editor>
     </div>
     <div v-else-if="state == 'loading'"> Loading ... </div>
     <login v-else :email ="email" :type ="state" @state = "state = 'ok'"/>
@@ -10,8 +11,9 @@
 </template>
 
 <script>
-import { onBeforeMount, ref } from 'vue';
+import { inject, onBeforeMount, ref } from 'vue';
 import Login from './Login.vue';
+import Editor from './Editor.vue';
 import { getCookie, setCookie } from '../modules/cookie';
 import useLogin from '../modules/login';
 export default {
@@ -20,6 +22,7 @@ export default {
         const state = ref('loading');
         const email = ref(getCookie('email'));
         const token = ref(getCookie('token'));
+        const toast = inject('toast', '');
 
         onBeforeMount(() => {
             const { checkToken } = useLogin();
@@ -45,7 +48,7 @@ export default {
 
         const onLogout = (e) => {
             if(e) e.preventDefault();
-
+            toast.value = '로그아웃 되었습니다.';
             setCookie('token','')
             state.value = 'login';
         }
@@ -53,7 +56,8 @@ export default {
         return { state, email, onLogout };
     },
     components: {
-        Login
+        Login,
+        Editor
     }
 };
 </script>
