@@ -37,4 +37,78 @@ module.exports.setup = function (app,db){
             }
         })
     })
+
+    //notification 에 대한 get 요청을 처리하는 코드를 작성하세요.
+
+    app.get('/db/notification', (req, res, next) => {
+        let result = {
+            rsp : 'fail'
+        }
+        db.get(`SELECT * FROM tbl_notifications WHERE expiration > date('now') ORDER BY id desc`,(err, row) => {
+            if(!err){
+                result.rsp = !row ? "nodata" : "ok";
+                if(row){
+                    result.data = row;
+                }
+                res.json(result)
+            }else{
+                result.error = err.message
+                res.json(result)
+            }
+        })
+
+    })
+
+    app.get('/db/notification/:id', (req, res, next) => {
+        let result = {
+          rsp: 'fail',
+        }
+        db.get(
+          `SELECT * FROM tbl_notifications WHERE expiration > date('now') AND id > ${req.params.id} ORDER BY id desc`,
+          (err, row) => {
+            if (!err) {
+              result.rsp = !row ? 'nodata' : 'ok'
+              if (row) {
+                result.data = row
+              }
+              res.json(result)
+            } else {
+              result.error = err.message
+              res.json(result)
+            }
+          }
+        )
+      })
+
+    app.get('/db/blog', (req, res, next) => {
+        let result = {
+            rsp : 'fail'
+        }
+        db.all('SELECT * FROM tbl_blog ORDER BY id desc',(err, rows) => {
+            if(!err){
+                result.rsp = 'ok'
+                result.data = rows
+                res.json(result)
+            }else{
+                result.error = err.message
+                res.json(result)
+            }
+        })
+    })
+
+    app.get('/db/admin', (req,res,next) => {
+        let result = {
+            rsp : 'fail'
+        }
+        db.get('SELECT * FROM tbl_admin',(err, row) => {
+            if(!err){
+                result.rsp = 'ok'
+                result.data = row
+                res.json(result)
+            }else{
+                result.error = err.message
+                res.json(result)
+            }
+        })
+    })
 }

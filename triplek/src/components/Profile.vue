@@ -72,7 +72,7 @@
     name: 'Profile',
     setup() {
       const store = useStore()
-      const axiosGet  = useAxios()
+      const {axiosGet}  = useAxios()
   
       const onSuccess = (data) => {
         console.log(store.dispatch)

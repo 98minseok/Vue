@@ -1,5 +1,6 @@
 <template>
   <nav-bar></nav-bar>
+  <div id="notification"/>
   <router-view></router-view>
 </template>
 
@@ -17,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  #notification{
+    text-shadow: 2px 2px 2px gray;
+  }
+</style>

@@ -22,7 +22,7 @@ export default{
     setup(){
         const searchData = ref("")
         const store = useStore()
-        const axiosGet = useAxios()
+        const {axiosGet} = useAxios()
         const applications = computed(() => {
             if(searchData.value ==""){
                 return store.getters['applications/applications']();
