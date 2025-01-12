@@ -28,11 +28,12 @@ export default {
             const { checkToken } = useLogin();
             const auto_login = getCookie('stay') == 'true';
 
-            email.value = email.value == '' || null ? 'test-email' : email.value;
-            token.value = token.value == '' || null ? 'test-token' : token.value;
+            email.value = email.value == ('' || null) ? 'test-email' : email.value;
+            token.value = token.value == ('' || null) ? 'test-token' : token.value;
             console.log(email.value, token.value);
             checkToken(email.value,token.value)
             .then((data) => {
+                console.log("data : " , data.data)
                 if(data.data == 'vue'){
                     state.value = 'update';
                     email.value = '';
