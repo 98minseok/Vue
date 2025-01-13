@@ -8,7 +8,7 @@
       >
         <div class="toast-header">
           <img
-            src="../assets/logo.png"
+            src="../assets/vue.svg"
             class="rounded me-2"
             alt="TripleK"
             width="15"

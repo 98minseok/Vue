@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 export default function () {
     const communicating = ref(false)
-    const BASE_URL = 'http://localhost:8000'
+    const BASE_URL = 'http://ec2-18-118-9-3.us-east-2.compute.amazonaws.com:8000'
     const createURL = (url) => {
         return url.startsWith('http') ? url : BASE_URL + url
     }

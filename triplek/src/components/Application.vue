@@ -17,32 +17,35 @@
     import { ref, onMounted , computed } from 'vue'
     import AppCard from './AppCard.vue';
     import useAxios from '../modules/axios'
+import { useApplications } from '../compositions/useApplications';
 export default{
     name : "Application",
     setup(){
         const searchData = ref("")
-        const store = useStore()
+        //const store = useStore()
         const {axiosGet} = useAxios()
+        const {applicationsData,applications_count,setApplications} = useApplications();
         const applications = computed(() => {
             if(searchData.value ==""){
-                return store.getters['applications/applications']();
+                //return store.getters['applications/applications']();
+                return applicationsData();
             }
             else{
-                return store.getters['applications/applications'](searchData.value);
+                //return store.getters['applications/applications'](searchData.value);
+                return applicationsData(searchData.value)
             }
             
         })
         console.log("applications : " + applications.value)
-        const applications_count = computed(
-            () => store.getters['applications/applications_count']
-        )
+        //const applications_count = 
+        //computed(() => store.getters['applications/applications_count'])
 
         onMounted(() => {
-            if (!store.getters['applications/applications_count']){
+            if (!applications_count){
                 axiosGet('/db/applications',(data) => {
                     console.log("onMounted",data)
-                    store.dispatch('applications/setApplications', data.data)
-
+                    //store.dispatch('applications/setApplications', data.data)
+                    setApplications(data.data)
                 })
             }
         })
