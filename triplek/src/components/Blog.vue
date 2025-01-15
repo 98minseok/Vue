@@ -105,7 +105,7 @@ export default {
     const { axiosGet } = useAxios()
     const posts = reactive([])
     onMounted(() => {
-      axiosGet('/db/blog', onSuccess)
+      //axiosGet('/db/blog', onSuccess)
     })
 
     const onSuccess = (data) => {

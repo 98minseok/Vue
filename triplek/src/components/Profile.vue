@@ -80,7 +80,7 @@
         //store.dispatch('about_me/setAboutMeData', data.data)
         setAboutMeData(data.data)
       }
-      axiosGet('/db/about-me', onSuccess)
+      //axiosGet('/db/about-me', onSuccess)
       
       //const user_data = computed(() => store.getters['about_me/user_data'])
       return {

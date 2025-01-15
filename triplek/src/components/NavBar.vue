@@ -81,12 +81,12 @@ export default {
       const block_noti_id = getCookie('notification') || 0
       const {axiosGet} = useAxios()
       console.log("axiosGet" + axiosGet);
-      axiosGet(`/db/notification`, (data) => {
-        Object.assign(notification,data.data)
-        console.log("성공" + data)
-        },(data) => {
-          console.log("실패" + data)
-        })
+      // axiosGet(`/db/notification`, (data) => {
+      //   Object.assign(notification,data.data)
+      //   console.log("성공" + data)
+      //   },(data) => {
+      //     console.log("실패" + data)
+      //   })
     })
     console.log(notification)
     return {
