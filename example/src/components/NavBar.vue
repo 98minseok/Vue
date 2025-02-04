@@ -1,7 +1,6 @@
 <template>
 <div class ="navbar-container">
   <RouterLink to="/">Home</RouterLink>
-  <RouterLink to="/test">Test</RouterLink>
 </div>
 </template>
 <script setup>
