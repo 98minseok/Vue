@@ -1,0 +1,13 @@
+.df{
+    display : flex;
+}
+.aic{
+    align-items: center;
+}
+.jcc{
+    justify-content: center;
+}
+
+.fdc{
+    flex-direction: column;
+}
