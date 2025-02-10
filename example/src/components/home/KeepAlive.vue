@@ -20,6 +20,7 @@
       <input id="TextComponent" v-model="componentTypeAlive" :value="TextComponent" type="radio">
       <label for="TextComponent">B</label>
     </div>
+    YES
   </div>
   <KeepAlive>
     <component :is="componentTypeAlive"></component>
