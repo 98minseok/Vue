@@ -1,0 +1,20 @@
+<template>
+  <div>
+      <table>
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>장르</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>아나</td>
+            <td>공포</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</template>
+<script>
+</script>
